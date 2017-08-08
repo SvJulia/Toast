@@ -1,5 +1,9 @@
 package com.example.julia.toast;
 
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,21 +13,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import static com.example.julia.toast.R.id.scroll;
+import static com.example.julia.toast.R.id.textView1;
+import static com.example.julia.toast.R.id.textView2;
+import static com.example.julia.toast.R.id.textView3;
+import static com.example.julia.toast.R.id.textViewTitle;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button button1;
     Button button2;
     Button button3;
 
-    ScrollView scroll;
-
-    TextView textViewTitle;
-    TextView textView1;
-    TextView textView2;
-    TextView textView3;
-    TextView textView4;
-
-    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,71 +35,67 @@ public class MainActivity extends AppCompatActivity {
         button2 = (Button) findViewById(R.id.button2);
         button3 = (Button) findViewById(R.id.button3);
 
-        scroll = (ScrollView) findViewById(R.id.scroll);
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
 
-        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+    }
 
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView2 = (TextView) findViewById(R.id.textView2);
-        textView3 = (TextView) findViewById(R.id.textView3);
-        textView4 = (TextView) findViewById(R.id.textView4);
+    @Override
+    public void onClick(View v) {
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        switch (v.getId()) {
+            case R.id.button1:
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scroll.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                changeColor(R.color.colorRed, R.string.title_panther, R.string.about_panther1,
+                        R.string.about_panther2, R.string.about_panther3, R.string.about_panther4,
+                        R.drawable.panther, "The color changed to RED!");
+                break;
 
-                textViewTitle.setText(getResources().getString(R.string.title_panther));
+            case R.id.button2:
 
-                textView1.setText(getResources().getString(R.string.about_panther1));
-                textView2.setText(getResources().getString(R.string.about_panther2));
-                textView3.setText(getResources().getString(R.string.about_panther3));
-                textView4.setText(getResources().getString(R.string.about_panther4));
+                changeColor(R.color.colorGreen, R.string.title_leopard, R.string.about_leopard1,
+                        R.string.about_leopard2, R.string.about_leopard3, R.string.about_leopard4,
+                        R.drawable.leopard, "The color changed to GREEN!");
+                break;
 
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.panther));
+            case R.id.button3:
 
-                Toast toast_red = Toast.makeText(getApplicationContext(), "The color changed to RED!", Toast.LENGTH_SHORT);
-                toast_red.show();
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scroll.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                changeColor(R.color.colorBlue, R.string.title_lynx, R.string.about_lynx1,
+                        R.string.about_lynx2, R.string.about_lynx3, R.string.about_lynx4,
+                        R.drawable.lynx, "The color changed to BLUE!");
 
-                textViewTitle.setText(getResources().getString(R.string.title_leopard));
+                break;
+        }
+    }
 
-                textView1.setText(getResources().getString(R.string.about_leopard1));
-                textView2.setText(getResources().getString(R.string.about_leopard2));
-                textView3.setText(getResources().getString(R.string.about_leopard3));
-                textView4.setText(getResources().getString(R.string.about_leopard4));
+    private void changeColor(int colorId, int titleId, int text1Id, int text2Id, int text3Id, int text4Id,
+                             int imageId, String message)
+    {
+        ScrollView scroll = (ScrollView) findViewById(R.id.scroll);
 
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.leopard));
+        TextView textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+        TextView textView1 = (TextView) findViewById(R.id.textView1);
+        TextView textView2 = (TextView) findViewById(R.id.textView2);
+        TextView textView3 = (TextView) findViewById(R.id.textView3);
+        TextView textView4 = (TextView) findViewById(R.id.textView4);
 
-                Toast toast_green = Toast.makeText(getApplicationContext(), "The color changed to GREEN!", Toast.LENGTH_SHORT);
-                toast_green.show();
-            }
-        });
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scroll.setBackgroundColor(getResources().getColor(R.color.colorBlue));
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
-                textViewTitle.setText(getResources().getString(R.string.title_lynx));
 
-                textView1.setText(getResources().getString(R.string.about_lynx1));
-                textView2.setText(getResources().getString(R.string.about_lynx2));
-                textView3.setText(getResources().getString(R.string.about_lynx3));
-                textView4.setText(getResources().getString(R.string.about_lynx4));
+        scroll.setBackgroundColor(getResources().getColor(colorId));
 
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.lynx));
+        textViewTitle.setText(getResources().getString(titleId));
 
-                Toast toast_blue = Toast.makeText(getApplicationContext(), "The color changed to BLUE!", Toast.LENGTH_SHORT);
-                toast_blue.show();
-            }
-        });
+        textView1.setText(getResources().getString(text1Id));
+        textView2.setText(getResources().getString(text2Id));
+        textView3.setText(getResources().getString(text3Id));
+        textView4.setText(getResources().getString(text4Id));
+
+        imageView.setImageDrawable(getResources().getDrawable(imageId));
+
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
 
     }
 
